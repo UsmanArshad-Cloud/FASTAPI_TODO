@@ -69,13 +69,13 @@ async def update_todo(todo_id: int, updated_todo: Todo, db: Session = Depends(ge
 
 
 @app.delete("/")
-async def delete_todo(todo_id:int,db: Session = Depends(get_db)):
+async def delete_todo(todo_id: int, db: Session = Depends(get_db)):
     todo_model = db.query(models.Todos).filter(models.Todos.id == todo_id).first()
     if todo_model is not None:
         db.query(models.Todos).filter(models.Todos.id == todo_id).delete()
         db.commit()
         return {
-            'status':201,
-            'transaction':'Successful'
+            'status': 201,
+            'transaction': 'Successful'
         }
     raise HTTPException(status_code=404, detail="Error in Deleting the Todo")
